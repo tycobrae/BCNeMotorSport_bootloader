@@ -1,0 +1,2 @@
+../Core/Src/cpu_comp.c:40:6:CpuIrqDisable	4	static,ignoring_inline_asm
+../Core/Src/cpu_comp.c:51:6:CpuIrqEnable	4	static,ignoring_inline_asm

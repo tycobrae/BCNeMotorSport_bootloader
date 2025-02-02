@@ -1,0 +1,14 @@
+../Core/Src/flash.c:221:6:FlashInit	4	static
+../Core/Src/flash.c:239:10:FlashWrite	32	static
+../Core/Src/flash.c:277:10:FlashErase	24	static
+../Core/Src/flash.c:310:10:FlashWriteChecksum	16	static
+../Core/Src/flash.c:379:10:FlashVerifyChecksum	16	static
+../Core/Src/flash.c:409:10:FlashDone	8	static
+../Core/Src/flash.c:439:10:FlashGetUserProgBaseAddress	4	static
+../Core/Src/flash.c:453:17:FlashInitBlock	16	static
+../Core/Src/flash.c:482:25:FlashSwitchBlock	16	static
+../Core/Src/flash.c:534:17:FlashAddToBlock	40	static
+../Core/Src/flash.c:605:17:FlashWriteBlock	40	static
+../Core/Src/flash.c:668:17:FlashEmptyCheckSector	40	static
+../Core/Src/flash.c:732:17:FlashEraseSectors	48	static
+../Core/Src/flash.c:797:18:FlashGetSector	24	static

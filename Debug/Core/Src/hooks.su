@@ -1,0 +1,2 @@
+../Core/Src/hooks.c:114:6:CopInitHook	8	static
+../Core/Src/hooks.c:131:6:CopServiceHook	8	static

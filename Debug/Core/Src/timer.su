@@ -1,0 +1,10 @@
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:1704:22:LL_APB2_GRP1_EnableClock	24	static
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:1832:22:LL_APB2_GRP1_DisableClock	16	static
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:1889:22:LL_APB2_GRP1_ForceReset	16	static
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:1947:22:LL_APB2_GRP1_ReleaseReset	16	static
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rcc.h:3305:26:LL_RCC_GetAPB2Prescaler	4	static
+../Core/Src/timer.c:69:6:TimerInit	32	static
+../Core/Src/timer.c:109:6:TimerReset	8	static
+../Core/Src/timer.c:130:6:TimerUpdate	16	static
+../Core/Src/timer.c:162:12:TimerGet	8	static
+../Core/Src/timer.c:183:10:HAL_GetTick	8	static

@@ -1,0 +1,4 @@
+../Core/Src/can.c:120:17:CanGetSpeedConfig	48	static
+../Core/Src/can.c:161:6:CanInit	64	static
+../Core/Src/can.c:253:6:CanTransmitPacket	56	static
+../Core/Src/can.c:310:10:CanReceivePacket	56	static

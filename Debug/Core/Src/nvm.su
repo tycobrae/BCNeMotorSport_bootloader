@@ -1,0 +1,6 @@
+../Core/Src/nvm.c:57:6:NvmInit	8	static
+../Core/Src/nvm.c:79:10:NvmWrite	24	static
+../Core/Src/nvm.c:120:10:NvmErase	16	static
+../Core/Src/nvm.c:160:10:NvmVerifyChecksum	8	static
+../Core/Src/nvm.c:178:10:NvmGetUserProgBaseAddress	8	static
+../Core/Src/nvm.c:193:10:NvmDone	8	static
