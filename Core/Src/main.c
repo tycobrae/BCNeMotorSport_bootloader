@@ -373,7 +373,18 @@ static void MX_GPIO_Init(void)
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
 
   /**/
+  LL_GPIO_ResetOutputPin(sad_GPIO_Port, sad_Pin);
+
+  /**/
   LL_GPIO_ResetOutputPin(Enable_Inverter_MCU_GPIO_Port, Enable_Inverter_MCU_Pin);
+
+  /**/
+  GPIO_InitStruct.Pin = sad_Pin;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(sad_GPIO_Port, &GPIO_InitStruct);
 
   /**/
   GPIO_InitStruct.Pin = Enable_Inverter_MCU_Pin;
@@ -391,9 +402,6 @@ static void MX_GPIO_Init(void)
 
   /**/
   LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTB, LL_SYSCFG_EXTI_LINE5);
-
-  /**/
-  LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTB, LL_SYSCFG_EXTI_LINE6);
 
   /**/
   LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTB, LL_SYSCFG_EXTI_LINE7);
@@ -420,13 +428,6 @@ static void MX_GPIO_Init(void)
   LL_EXTI_Init(&EXTI_InitStruct);
 
   /**/
-  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_6;
-  EXTI_InitStruct.LineCommand = ENABLE;
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_RISING_FALLING;
-  LL_EXTI_Init(&EXTI_InitStruct);
-
-  /**/
   EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_7;
   EXTI_InitStruct.LineCommand = ENABLE;
   EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
@@ -443,9 +444,6 @@ static void MX_GPIO_Init(void)
   LL_GPIO_SetPinPull(SUS_Fuse_GPIO_Port, SUS_Fuse_Pin, LL_GPIO_PULL_NO);
 
   /**/
-  LL_GPIO_SetPinPull(TT_Fuse_GPIO_Port, TT_Fuse_Pin, LL_GPIO_PULL_NO);
-
-  /**/
   LL_GPIO_SetPinPull(BSE_Fuse_GPIO_Port, BSE_Fuse_Pin, LL_GPIO_PULL_NO);
 
   /**/
@@ -456,9 +454,6 @@ static void MX_GPIO_Init(void)
 
   /**/
   LL_GPIO_SetPinMode(SUS_Fuse_GPIO_Port, SUS_Fuse_Pin, LL_GPIO_MODE_INPUT);
-
-  /**/
-  LL_GPIO_SetPinMode(TT_Fuse_GPIO_Port, TT_Fuse_Pin, LL_GPIO_MODE_INPUT);
 
   /**/
   LL_GPIO_SetPinMode(BSE_Fuse_GPIO_Port, BSE_Fuse_Pin, LL_GPIO_MODE_INPUT);

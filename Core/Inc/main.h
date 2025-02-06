@@ -74,8 +74,10 @@ void Error_Handler(void);
 #define TT_ADC_GPIO_Port GPIOC
 #define SUS_ADC_Pin LL_GPIO_PIN_2
 #define SUS_ADC_GPIO_Port GPIOC
+#define sad_Pin LL_GPIO_PIN_2
+#define sad_GPIO_Port GPIOA
 #define Enable_Inverter_MCU_Pin LL_GPIO_PIN_2
-#define Enable_Inverter_MCU_GPIO_Port GPIOA
+#define Enable_Inverter_MCU_GPIO_Port GPIOB
 #define SDC_OUT_MCU_Pin LL_GPIO_PIN_10
 #define SDC_OUT_MCU_GPIO_Port GPIOC
 #define SDC_OUT_MCU_EXTI_IRQn EXTI15_10_IRQn
@@ -84,8 +86,6 @@ void Error_Handler(void);
 #define SDC_IN_MCU_EXTI_IRQn EXTI15_10_IRQn
 #define SUS_Fuse_Pin LL_GPIO_PIN_5
 #define SUS_Fuse_GPIO_Port GPIOB
-#define TT_Fuse_Pin LL_GPIO_PIN_6
-#define TT_Fuse_GPIO_Port GPIOB
 #define BSE_Fuse_Pin LL_GPIO_PIN_7
 #define BSE_Fuse_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
