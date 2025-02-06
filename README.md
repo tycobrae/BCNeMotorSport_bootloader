@@ -1,36 +1,74 @@
-this is the project of the bootloader of bcnemotorsport
+# Bootloader Project for BCN eMotorsport
 
-This bootloader is based on the openblt project from feaser, for futher information refer to the webpage of the creator.
+This project is a bootloader implementation for BCN eMotorsport, based on the [OpenBLT](https://www.feaser.com/openblt/) project from Feaser. For further information, refer to the creator's webpage.
 
-Sumary: the main idea is to have 2 diferent codes in the same microcontroller. First one runs and checks for to update the firmware for the ecu, is a now fw is detectec, start erasing the previous proprgam and then starts the new program if no new fw is detected afret a few ms the preexisting aplication starts to run. If ther is no aplicaiton in the flash memory, the bootloader will keep running forever 
+## Summary
+The main idea is to have two different codes running on the same microcontroller:
+1. The bootloader runs first and checks if a firmware update for the ECU is available. 
+2. If a new firmware is detected, the bootloader erases the previous program and starts the new one.
+3. If no new firmware is detected after a few milliseconds, the preexisting application starts running.
+4. If no application is found in the flash memory, the bootloader will keep running indefinitely.
 
-For using this project, first clone it in the project workspace and the openblt repo.
+## Setup and Configuration
+### Cloning the Repository
+To use this project, first clone it into your project workspace along with the OpenBLT repository.
 
-Its very important to make sure that the conig_blt.h file in the booloader project is properly configured for the intended ECU, specially the can baud rate (does not need to match the line baudrate, can be any other one), the reciver id and sender id (this should be diferent for every ECU in the car, this will make possible for the host to choose beetwen the diferent ECU's conected to the line. Its also important to mention that this bootloader is adapted to stm32f405rgt6 microcontollers, other midrocontroller like the one used in the dashboard should have a diferent bootloader. Its also important to modify in the led.c file in the function LedBlinkTask() to adapt the pins the led pin of the different ecu's, and also the LedBlinkInit to choose the desired blink period.
+### Configuring the Bootloader
+Make sure the `blt_conf.h` file in the bootloader project is properly configured for the intended ECU. Pay special attention to:
+- **CAN baud rate**: It does not need to match the main CAN line baud rate and can be set independently.
+- **Receiver ID and Sender ID**: Each ECU in the car should have a different ID, allowing the host to select between the different ECUs connected to the CAN network.
+- **Microcontroller compatibility**: This bootloader is adapted for the STM32F405RGT6. Other microcontrollers, such as the one used in the dashboard, will require a different bootloader.
+- **LED Pin Configuration**:
+  - Modify the `.ioc` file to set the LED pin as an output.
+  - Ensure the CAN pins match the PCB design.
+  - In `led.c`, update `LedBlinkTask()` to configure the LED pin correctly for different ECUs.
+  - Adjust `LedBlinkInit()` to choose the desired blink period.
 
+### Configuring the Application
+Ensure that the application is correctly set up:
+1. **Flash Memory Addressing**:
+   - In the `STM32F405RGTX_FLASH.ld` file, set the flash start address to `0x08008000`.
+   - Adjust the length to `1024K - 32K`, since the first `32K` (`0x8000` bytes in hex) are reserved for the bootloader.
+2. **Vector Table Offset**:
+   - In `system_stm32f4xx.c` (found in `Core/Src`), uncomment the line:
+     ```c
+     #define USER_VECT_TAB_ADDRESS
+     ```
+   - Modify `VECT_TAB_OFFSET` to `0x08008000`.
 
-3. Make sure that the flash start adress in the STM32F405RGTX_FLASH.ld file of the aplication is properly set to 0x8008000. and the lentgh set to 1024k - 32k, since the first 32k (8000 bytes in hex) are reserved for the bootloader program. Its also important to modify in the system_stm32f4xx.c file in the Core/Src folder to uncoment the line #define USER_VECT_TAB_ADDRESS and modify the vect_tab_offset to 0x08008000.
+### Flashing the Bootloader and Application
+1. Once all modifications are complete, erase the MCU memory using **STM32CubeProgrammer**.
+2. Load the bootloader program as usual.
+3. Verify that the LED blinks at the configured rate (it should never stop blinking).
+4. Open the **MicroBoot** application located in the `host` folder of the OpenBLT cloned repository.
+5. In **MicroBoot settings**, configure:
+   - CAN interface (likely **Kvaser**).
+   - Baud rate.
+   - Receiver and transmitter IDs (as set in `blt_conf.h`).
+6. Start the update process. The bootloader should erase and program the flash memory.
 
-4. when you have the needed modifications done in the bootloader and the application done, erease the memory of the mcu using stm32cubeprogrammer. Then load the bootloader program as normal and make sure that the led is blinking at the rate you selected in the led.c file, it should never stop blinking. Once yo see it blicking open the microbot app located in the host folder of the open blt cloned repository, click in the setting and meke sure to select the can interface (probably kvaser) the baund rate and the id of the reciver and transmited you choose in the bltconf.h file previously. The program should start erase and programming the flash sector.
+## Debugging the Application
+When debugging the application, **disable the download process** in the debug configuration to prevent overwriting the application itself:
+1. Go to **Debug Configurations**.
+2. Under **STM32 C/C++ Application**, select the main application.
+3. In the **Startup** tab:
+   - Select **Load image and symbols**.
+   - Click **Edit** and **disable download**.
 
+## Troubleshooting Checklist
+If something isn't working, check the following:
+- Is `blt_conf.h` properly configured?
+  - Verify the **receiver and transmitter IDs**.
+  - Ensure the **CAN baud rate** is correctly set.
+  - Check the **flash memory size**.
+- Are the LED pins configured correctly?
+- Is the Kvaser CAN adapter connected?
+  - Power LED should be green.
+  - During upload, CAN LED should blink yellow.
+  - Remember: Kvaser cannot be used by two applications simultaneously.
+- Is `FLASH.id` properly set to `0x08008000`?
+- Are you using the correct **Run/Debug** configuration?
+  - Make sure you're flashing the correct project in the workspace, as you'll be working with two different projects (bootloader and application).
 
-
-
-4. In case you want to debug the aplication Another important thing is to make sure to diable the download process in the debug configuration of the aplication since it will overwrite the application iself. This can be done in the debug dropdown,  debug configurations, select in the stm32 c/c++ aplication the main application and in the startup tab, select the load ima and symbols, edit and diable the download.
-
-
-
-Is not working?
-
-checklist:
-
-is the blt_conf file properly set? check for the reciver and transmiter id. The can baudrate properly set, the size of the flash 
-
-Led pins properly working.?
-
-Kvaser conected? Power green and when starting the upload prcess can led blinking yellow. Remember that the kavaser can not work with 2 applications at the same time.
-
-Flash.id properly set to 0x08008000?
-
-its also importat to check the run/debug file you are uploading to the mcu sin you will be working with 2 projects at the same time in the workspace
-
+---
+This guide ensures proper configuration and debugging of the bootloader and application. If issues persist, verify all settings and consult OpenBLT documentation for further troubleshooting.
