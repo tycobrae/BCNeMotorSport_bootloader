@@ -74,6 +74,8 @@ void Error_Handler(void);
 #define TT_ADC_GPIO_Port GPIOC
 #define SUS_ADC_Pin LL_GPIO_PIN_2
 #define SUS_ADC_GPIO_Port GPIOC
+#define RED_Led_Pin LL_GPIO_PIN_3
+#define RED_Led_GPIO_Port GPIOC
 #define sad_Pin LL_GPIO_PIN_2
 #define sad_GPIO_Port GPIOA
 #define Enable_Inverter_MCU_Pin LL_GPIO_PIN_2

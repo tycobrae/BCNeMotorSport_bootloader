@@ -72,12 +72,12 @@ void LedBlinkTask(void)
     if (ledOn == BLT_FALSE)
     {
       ledOn = BLT_TRUE;
-      HAL_GPIO_WritePin(Enable_Inverter_MCU_GPIO_Port, Enable_Inverter_MCU_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(RED_Led_GPIO_Port, RED_Led_Pin, GPIO_PIN_SET);
     }
     else
     {
       ledOn = BLT_FALSE;
-      HAL_GPIO_WritePin(Enable_Inverter_MCU_GPIO_Port, Enable_Inverter_MCU_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(RED_Led_GPIO_Port, RED_Led_Pin, GPIO_PIN_RESET);
     }
     /* schedule the next blink event */
     nextBlinkEvent = TimerGet() + ledBlinkIntervalMs;

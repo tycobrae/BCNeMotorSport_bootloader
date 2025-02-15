@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := Bootloader
+BUILD_ARTIFACT_NAME := BCNeMotorSport_bootloader
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Bootloader.elf \
+BCNeMotorSport_bootloader.elf \
 
 MAP_FILES += \
-Bootloader.map \
+BCNeMotorSport_bootloader.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Bootloader.list \
+BCNeMotorSport_bootloader.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: Bootloader.elf secondary-outputs
+main-build: BCNeMotorSport_bootloader.elf secondary-outputs
 
 # Tool invocations
-Bootloader.elf Bootloader.map: $(OBJS) $(USER_OBJS) C:\Users\david\Documents\02Formula\Cat17\bootloader\bootloader\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\david\Documents\02Formula\Cat17\bootloader\bootloader\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+BCNeMotorSport_bootloader.elf BCNeMotorSport_bootloader.map: $(OBJS) $(USER_OBJS) C:\Users\david\STM32CubeIDE\ws_Mitjorn_CAT16x\BCNeMotorSport_bootloader\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "BCNeMotorSport_bootloader.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\david\STM32CubeIDE\ws_Mitjorn_CAT16x\BCNeMotorSport_bootloader\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BCNeMotorSport_bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Bootloader.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Bootloader.list"
+BCNeMotorSport_bootloader.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "BCNeMotorSport_bootloader.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) Bootloader.elf Bootloader.list Bootloader.map default.size.stdout
+	-$(RM) BCNeMotorSport_bootloader.elf BCNeMotorSport_bootloader.list BCNeMotorSport_bootloader.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
