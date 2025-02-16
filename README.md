@@ -13,8 +13,8 @@ The main idea is to have two different codes running on the same microcontroller
 ### Cloning the Repository
 To use this project, first clone it into your project workspace along with the OpenBLT [repository](https://github.com/feaser/openblt).
 
-### Configuring the Bootloader
-Make sure the `blt_conf.h` file in the bootloader project is properly configured for the intended ECU. Pay special attention to:
+### Configuring the Bootloader (BCNeMotorSport_bootloader project)
+Clone this repository, open it in STM32CubeIDE and make sure the `blt_conf.h` file in the bootloader project is properly configured for the intended ECU. Pay special attention to:
 - **CAN baud rate**: It does not need to match the main CAN line baud rate and can be set independently.
 - **Receiver ID and Sender ID**: Each ECU in the car should have a different ID, allowing the host to select between the different ECUs connected to the CAN network.
 - **Microcontroller compatibility**: This bootloader is adapted for the STM32F405RGT6. Other microcontrollers, such as the one used in the dashboard, will require a different bootloader.
@@ -26,17 +26,17 @@ Make sure the `blt_conf.h` file in the bootloader project is properly configured
   - Ensure the CAN pins match the PCB design.
 
     
-### Configuring the Application
-Ensure that the application is correctly set up:
+### Configuring the Application (your project files)
+To ensure that the application is correctly set up, open your application project in STM32CubeIDE:
 1. **Flash Memory Addressing**:
    - In the `STM32F405RGTX_FLASH.ld` file, set the flash start address to `0x08008000` (line 50).
    - Adjust the length to `1024K - 32K`, since the first `32Kb` (`0x8000` bytes in hex) are reserved for the bootloader.
 2. **Vector Table Offset**:
-   - In `system_stm32f4xx.c` (found in `Core/Src`), uncomment the line:
+   - In `system_stm32f4xx.c` (found in `Core/Src`), uncomment the line 94:
      ```c
      #define USER_VECT_TAB_ADDRESS
      ```
-   - Modify `VECT_TAB_OFFSET` to `0x08008000`.
+   - Modify `VECT_TAB_OFFSET` to `0x08008000` (line 108).
 3. **Startup file**:
    - In the `startup_stm32f405rftx.s` file, in /Core/Surtup, comment the line 97:
      ```c
